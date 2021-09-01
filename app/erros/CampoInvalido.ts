@@ -1,4 +1,5 @@
-class CampoInvalido extends Error {
+export class CampoInvalido extends Error {
+    idErro: number
     constructor (campo) {
         const mensagem = `O campo '${campo}' está inválido`
         super(mensagem)

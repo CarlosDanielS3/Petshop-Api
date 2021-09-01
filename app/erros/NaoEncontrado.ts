@@ -1,4 +1,5 @@
-class NaoEncontrado extends Error {
+export class NaoEncontrado extends Error {
+    idErro: number
     constructor (nome) {
         super(`${nome} não foi encontrado!`)
         this.name = 'NaoEncontrado'

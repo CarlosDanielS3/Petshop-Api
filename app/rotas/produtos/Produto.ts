@@ -1,8 +1,17 @@
 const Tabela = require('./TabelaProduto')
 const DadosNaoFornecidos = require('../../../erros/DadosNaoFornecidos')
 const CampoInvalido = require('../../../erros/CampoInvalido')
+import { dadosParaAtualizar } from '../../interfaces/dadosParaAtualizar'
 
-class Produto {
+export class Produto {
+    id: string
+    titulo: string
+    preco: number
+    estoque: number
+    fornecedor: string
+    dataCriacao: string
+    dataAtualizacao: string
+    versao: string
     constructor ({ id, titulo, preco, estoque, fornecedor, dataCriacao, dataAtualizacao, versao }) {
         this.id = id
         this.titulo = titulo
@@ -54,7 +63,7 @@ class Produto {
     }
 
     atualizar () {
-        const dadosParaAtualizar = {}
+        let dadosParaAtualizar: dadosParaAtualizar = {titulo:'', preco:0, estoque:0}
         
         if (typeof this.titulo === 'string' && this.titulo.length > 0){
             dadosParaAtualizar.titulo = this.titulo

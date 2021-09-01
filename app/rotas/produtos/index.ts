@@ -1,16 +1,16 @@
-const roteador = require('express').Router({ mergeParams: true })
+const roteadorProduto = require('express').Router({ mergeParams: true })
 const Tabela = require('./TabelaProduto')
 const Produto = require('./Produto')
 const Serializador = require('../../../Serializador').SerializadorProduto
 
-roteador.options('/', (requisicao, resposta) => {
+roteadorProduto.options('/', (requisicao, resposta) => {
     resposta.set('Access-Control-Allow-Methods', 'GET, POST')
     resposta.set('Access-Control-Allow-Headers', 'Content-Type')
     resposta.status(204)
     resposta.end()
 })
 
-roteador.get('/', async (requisicao, resposta) => {
+roteadorProduto.get('/', async (requisicao, resposta) => {
     const produtos = await Tabela.listar(requisicao.fornecedor.id)
     const serializador = new Serializador(
         resposta.getHeader('Content-Type')
@@ -20,7 +20,7 @@ roteador.get('/', async (requisicao, resposta) => {
     )
 })
 
-roteador.post('/', async (requisicao, resposta, proximo) => {
+roteadorProduto.post('/', async (requisicao, resposta, proximo) => {
     try {
         const idFornecedor = requisicao.fornecedor.id
         const corpo = requisicao.body
@@ -43,14 +43,14 @@ roteador.post('/', async (requisicao, resposta, proximo) => {
     }
 })
 
-roteador.options('/:id', (requisicao, resposta) => {
+roteadorProduto.options('/:id', (requisicao, resposta) => {
     resposta.set('Access-Control-Allow-Methods', 'DELETE, GET, HEAD, PUT')
     resposta.set('Access-Control-Allow-Headers', 'Content-Type')
     resposta.status(204)
     resposta.end()
 })
 
-roteador.delete('/:id', async (requisicao, resposta) => {
+roteadorProduto.delete('/:id', async (requisicao, resposta) => {
     const dados = {
         id: requisicao.params.id,
         fornecedor: requisicao.fornecedor.id
@@ -62,7 +62,7 @@ roteador.delete('/:id', async (requisicao, resposta) => {
     resposta.end()
 })
 
-roteador.get('/:id', async (requisicao, resposta, proximo) => {
+roteadorProduto.get('/:id', async (requisicao, resposta, proximo) => {
     try {
         const dados = {
             id: requisicao.params.id,
@@ -86,7 +86,7 @@ roteador.get('/:id', async (requisicao, resposta, proximo) => {
     }
 })
 
-roteador.head('/:id', async (requisicao, resposta, proximo) => {
+roteadorProduto.head('/:id', async (requisicao, resposta, proximo) => {
     try {
         const dados = {
             id: requisicao.params.id,
@@ -105,7 +105,7 @@ roteador.head('/:id', async (requisicao, resposta, proximo) => {
     }
 })
 
-roteador.put('/:id', async (requisicao, resposta, proximo) => {
+roteadorProduto.put('/:id', async (requisicao, resposta, proximo) => {
     try {
         const dados = Object.assign(
             {},
@@ -129,14 +129,14 @@ roteador.put('/:id', async (requisicao, resposta, proximo) => {
     }
 })
 
-roteador.options('/:id/diminuir-estoque', (requisicao, resposta) => {
+roteadorProduto.options('/:id/diminuir-estoque', (requisicao, resposta) => {
     resposta.set('Access-Control-Allow-Methods', 'POST')
     resposta.set('Access-Control-Allow-Headers', 'Content-Type')
     resposta.status(204)
     resposta.end()
 })
 
-roteador.post('/:id/diminuir-estoque', async (requisicao, resposta, proximo) => {
+roteadorProduto.post('/:id/diminuir-estoque', async (requisicao, resposta, proximo) => {
     try {
         const produto = new Produto({
             id: requisicao.params.id,

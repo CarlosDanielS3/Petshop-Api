@@ -2,7 +2,14 @@ const TabelaFornecedor = require('./TabelaFornecedor')
 const CampoInvalido = require('../../erros/CampoInvalido')
 const DadosNaoFornecidos = require('../../erros/DadosNaoFornecidos')
 
-class Fornecedor {
+export default class Fornecedor {
+    id: string
+    empresa: string
+    email: string
+    categoria: string
+    dataCriacao: string
+    dataAtualizacao: string
+    versao: string
     constructor ({ id, empresa, email, categoria, dataCriacao, dataAtualizacao, versao }) {
         this.id = id
         this.empresa = empresa

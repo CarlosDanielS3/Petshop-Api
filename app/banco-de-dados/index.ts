@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
-const config = require('config')
+import { Sequelize } from 'sequelize'
+import config from 'config'
 
-const instancia = new Sequelize(
+export const instancia = new Sequelize(
     config.get('mysql.banco-de-dados'),
     config.get('mysql.usuario'),
     config.get('mysql.senha'),
@@ -10,5 +10,3 @@ const instancia = new Sequelize(
         dialect: 'mysql'
     }
 )
-
-module.exports = instancia

@@ -1,4 +1,5 @@
-class ValorNaoSuportado extends Error {
+export default class ValorNaoSuportado extends Error {
+    idErro: number
     constructor (contentType) {
         super(`O tipo de conteúdo ${contentType} não é suportado`)
         this.name = 'ValorNaoSuportado'

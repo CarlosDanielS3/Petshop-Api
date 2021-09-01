@@ -1,12 +1,17 @@
-const ValorNaoSuportado = require('./erros/ValorNaoSuportado')
+import ValorNaoSuportado  from './erros/ValorNaoSuportado'
+import SerializadorErro from './SerializadorErro'
 const jsontoxml = require('jsontoxml')
 
-class Serializador {
-    json (dados) {
+export default class Serializador {
+    contentType: string
+    tagSingular: any
+    tagPlural: any
+    camposPublicos: any
+    json (dados: any) {
         return JSON.stringify(dados)
     }
 
-    xml (dados) {
+    xml (dados: any[]) {
         let tag = this.tagSingular
 
         if (Array.isArray(dados)) {
@@ -21,7 +26,7 @@ class Serializador {
         return jsontoxml({ [tag]: dados })
     }
 
-    serializar (dados) {
+    serializar (dados: any) {
         dados = this.filtrar(dados)
 
         if (this.contentType === 'application/json') {
@@ -35,10 +40,10 @@ class Serializador {
         throw new ValorNaoSuportado(this.contentType)
     }
 
-    filtrarObjeto (dados) {
+    filtrarObjeto (dados: { [x: string]: any; hasOwnProperty: (arg0: any) => any }) {
         const novoObjeto = {}
 
-        this.camposPublicos.forEach((campo) => {
+        this.camposPublicos.forEach((campo: string | number) => {
             if (dados.hasOwnProperty(campo)) {
                 novoObjeto[campo] = dados[campo]
             }
@@ -47,13 +52,13 @@ class Serializador {
         return novoObjeto
     }
 
-    filtrar (dados) {
+    filtrar (dados: any[] | any): any {
         if (Array.isArray(dados)) {
             dados = dados.map(item => {
                 return this.filtrarObjeto(item)
             })
         } else {
-            dados = this.filtrarObjeto(dados)
+            dados = this.filtrarObjeto(dados) 
         }
 
         return dados
@@ -61,7 +66,7 @@ class Serializador {
 }
 
 class SerializadorFornecedor extends Serializador {
-    constructor (contentType, camposExtras) {
+    constructor (contentType: string, camposExtras: any) {
         super()
         this.contentType = contentType
         this.camposPublicos = [
@@ -74,7 +79,11 @@ class SerializadorFornecedor extends Serializador {
 }
 
 class SerializadorProduto extends Serializador {
-    constructor (contentType, camposExtras) {
+    contentType: string
+    camposPublicos: string[]
+    tagSingular: string
+    tagPlural: string
+    constructor (contentType: string, camposExtras: any) {
         super()
         this.contentType = contentType
         this.camposPublicos = [
@@ -83,19 +92,6 @@ class SerializadorProduto extends Serializador {
         ].concat(camposExtras || [])
         this.tagSingular = 'produto'
         this.tagPlural = 'produtos'
-    }
-}
-
-class SerializadorErro extends Serializador {
-    constructor (contentType, camposExtras) {
-        super()
-        this.contentType = contentType
-        this.camposPublicos = [
-            'id',
-            'mensagem'
-        ].concat(camposExtras || [])
-        this.tagSingular = 'erro'
-        this.tagPlural = 'erros'
     }
 }
 

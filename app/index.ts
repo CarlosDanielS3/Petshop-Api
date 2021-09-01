@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const config = require('config')
-const NaoEncontrado = require('./erros/NaoEncontrado')
-const CampoInvalido = require('./erros/CampoInvalido')
+import { NaoEncontrado } from './erros/NaoEncontrado';
+import { CampoInvalido } from './erros/CampoInvalido';
 const DadosNaoFornecidos = require('./erros/DadosNaoFornecidos')
 const ValorNaoSuportado = require('./erros/ValorNaoSuportado')
 const formatosAceitos = require('./Serializador').formatosAceitos

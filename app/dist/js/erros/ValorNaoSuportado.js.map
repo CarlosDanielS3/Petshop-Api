@@ -1,0 +1,1 @@
+{"version":3,"file":"ValorNaoSuportado.js","sourceRoot":"","sources":["../../../erros/ValorNaoSuportado.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,OAAO,iBAAkB,SAAQ,KAAK;IAEhD,YAAa,WAAW;QACpB,KAAK,CAAC,sBAAsB,WAAW,kBAAkB,CAAC,CAAA;QAC1D,IAAI,CAAC,IAAI,GAAG,mBAAmB,CAAA;QAC/B,IAAI,CAAC,MAAM,GAAG,CAAC,CAAA;IACnB,CAAC;CACJ;AAED,MAAM,CAAC,OAAO,GAAG,iBAAiB,CAAA"}
